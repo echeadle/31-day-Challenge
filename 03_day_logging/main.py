@@ -52,4 +52,17 @@ def str_to_dict(s):
 
 
 # use pandas to get extra information and print out to terminal
+log_data = get_log()
+log_data_df = pd.DataFrame(log_data)
 
+log_data_df["total_tokens"] = log_data_df.apply(
+    lambda row: str_to_dict(row["response"])["usage"]["total_tokens"], axis=1
+)
+log_data_df["request"] = log_data_df.apply(
+    lambda row: str_to_dict(row["request"])["messages"][0]["content"], axis=1
+)
+log_data_df["response"] = log_data_df.apply(
+    lambda row: str_to_dict(row["response"])["choices"][0]["message"]["content"], axis=1
+)
+
+print(log_data_df)
