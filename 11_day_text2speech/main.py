@@ -1,9 +1,10 @@
 import requests
 import autogen
 from typing import Annotated
+import time
 
 API_URL = "https://api-inference.huggingface.co/models/espnet/kan-bayashi_ljspeech_vits"
-headers = {"Authorization": "Bearer your_tokem"}
+headers = {"Authorization": "Bearer user_token"}
 
 
 def query(payload):
@@ -16,7 +17,7 @@ llm_config = {
         env_or_file="OAI_CONFIG_LIST.json",
     ),
     "temperature": 0,
-    "seed": 42
+    "seed": 43,
 }
 
 # Create an agent workflow and run it
@@ -24,7 +25,7 @@ assistant = autogen.AssistantAgent(name="assistant", llm_config=llm_config)
 user_proxy = autogen.UserProxyAgent(
     name="user_proxy",
     code_execution_config=False,
-    human_input_mode="NEVER",
+    human_input_mode="ALWAYS",
 )
 
 
@@ -32,11 +33,13 @@ user_proxy = autogen.UserProxyAgent(
 @assistant.register_for_llm(description="Get the text to convert to audio and save to file")
 def write_message(message: Annotated[str, "The response from the LLM"]) -> str:
     print(message)
+    time.sleep(10)
     audio = query({
         "inputs": message,
     })
 
-    with open('ai_audio1.flac', 'wb') as file:
+    time.sleep(10)
+    with open('old_audio_files/ai_audio1.flac', 'wb') as file:
         file.write(audio)
 
     return message
