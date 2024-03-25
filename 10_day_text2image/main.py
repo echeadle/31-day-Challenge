@@ -7,7 +7,7 @@ from typing import Annotated
 
 # api and headers
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer your_token"}
 
 # the llm_config
 llm_config = {
