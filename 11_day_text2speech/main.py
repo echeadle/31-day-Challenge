@@ -39,7 +39,7 @@ def write_message(message: Annotated[str, "The response from the LLM"]) -> str:
     })
 
     time.sleep(10)
-    with open('old_audio_files/ai_audio1.flac', 'wb') as file:
+    with open('ai_audio1.flac', 'wb') as file:
         file.write(audio)
 
     return message
