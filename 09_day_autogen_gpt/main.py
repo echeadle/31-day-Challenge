@@ -7,7 +7,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "sk-1111"
 
 index_name = "faiss_autogen"
 
