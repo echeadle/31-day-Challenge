@@ -8,7 +8,8 @@ from langchain.chains import RetrievalQA
 from langchain_openai import OpenAI
 
 os.environ["OPENAI_API_KEY"] = "sk-1111"
-os.environ["model"] = "gpt-3.5-turbo"
+#os.environ["model"] = "gpt-3.5-turbo"
+os.environ["model"] = "mistral:latest"
 os.environ["base_url"] = "http://localhost:1234/v1"
 
 folder_path = "faiss_vector_db"
@@ -19,7 +20,7 @@ if __name__ == "__main__":
     embeddings = OpenAIEmbeddings()
 
     if not os.path.exists(folder_path):
-        pdf_path = "/day_19_read_pdf/ancient_rome.pdf"
+        pdf_path = "./ancient_rome.pdf"
         loader = PyMuPDFLoader(file_path=pdf_path)
         documents = loader.load()
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=30)
@@ -31,7 +32,7 @@ if __name__ == "__main__":
 
     my_vectorstore = FAISS.load_local(folder_path, embeddings, allow_dangerous_deserialization=True)
     qa = RetrievalQA.from_chain_type(llm=OpenAI(), retriever=my_vectorstore.as_retriever(), chain_type="map_reduce")
-    response = qa.invoke("Give me a vocabulary definition directly word for word from this pdf from chapter 10")
+    response = qa.invoke("Sumerize the Punic War in 100 words are less.")
     print(response)
     print("done")
 
