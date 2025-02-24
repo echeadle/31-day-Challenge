@@ -21,7 +21,10 @@ llm_config = {
 }
 
 # Create an agent workflow and run it
-assistant = autogen.AssistantAgent(name="assistant", llm_config=llm_config)
+assistant = autogen.AssistantAgent(
+    name="assistant", 
+    llm_config=llm_config)
+
 user_proxy = autogen.UserProxyAgent(
     name="user_proxy",
     code_execution_config=False,
